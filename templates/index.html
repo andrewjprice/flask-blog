@@ -2,9 +2,11 @@
 <html>
 <head>
   <title>FlaskBlog</title>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
   <div class="nav">
+    <h1>Flask Blog</h1>
     {% if not session.logged_in %}
       <div class="login">
         <form action="{{ url_for('login') }}" method="post">
@@ -15,7 +17,7 @@
       </div>
     {% else %}
       <div class="logout">
-        <a href="{{ url_for('logout') }}">log out</a>
+        <a href="{{ url_for('logout') }}">logout</a>
       </div>
     {% endif %}
   </div>
@@ -26,7 +28,8 @@
   {% block body %}{% endblock %}
 
   {% if session.logged_in %}
-    <form action="{{ url_for('create') }}" method="post">
+    <form action="{{ url_for('create') }}" method="post" class="post_form">
+      <h1>Add Posts</h1>
       <dl>
         <dt>Title:</dt>
         <dd><input type="text" size="30" name="title"></dd>
@@ -37,9 +40,9 @@
     </form>
   {% endif %}
 
-  <div>
-    <h1>Flask Blog</h1>
-    <ul>
+  <div class="page">
+    <h1>Posts</h1>
+    <ul class="posts">
       {% for post in posts %}
         <li><h2>{{ post.title }}</h2>{{ post.body|safe }}</li>
       {% else %}
