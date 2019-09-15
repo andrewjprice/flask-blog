@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>FlaskBlog</title>
+</head>
+<body>
+  <div class="nav">
+    {% if not session.logged_in %}
+      <div class="login">
+        <form action="{{ url_for('login') }}" method="post">
+            <input type="text" name="username" placeholder="username">
+            <input type="text" name="password" placeholder="password">
+            <input type="submit" value="Login">
+          </form>
+      </div>
+    {% else %}
+      <div class="logout">
+        <a href="{{ url_for('logout') }}">log out</a>
+      </div>
+    {% endif %}
+  </div>
+
+  {% for message in get_flashed_messages() %}
+    <div class="flash">{{ message }}</div>
+  {% endfor %}
+
+  <div>
+    <h1>Flask Blog</h1>
+    <li><em>No entries</em></li>
+  </div>
+
+</body>
+</html>
