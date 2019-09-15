@@ -66,6 +66,18 @@ def logout():
     flash('Successfully logged out')
     return redirect(url_for('index'))
 
+@app.route('/posts', methods=['POST'])
+def create():
+    if not session.get('logged_in'):
+        abort(401)
+    db = get_db()
+    db.execute(
+        'insert into posts (title, body) values (?, ?)',
+        [request.form['title'], request.form['body']]
+    )
+    db.commit()
+    flash('Successfully created new post')
+    return redirect(url_for('index'))
 
 if __name__ == '__main__':
     init_db()

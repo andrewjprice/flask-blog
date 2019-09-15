@@ -62,5 +62,18 @@ class FlaskrTestCase(unittest.TestCase):
         )
         assert b'Invalid password' in rv.data
 
+    def test_posts(self):
+        self.login(
+            app.app.config['USERNAME'],
+            app.app.config['PASSWORD']
+        )
+        rv = self.app.post('/posts', data=dict(
+            title='First Post',
+            body='This is a test'
+        ), follow_redirects=True)
+        assert b'No entries' not in rv.data
+        assert b'First Post' in rv.data
+        assert b'This is a test' in rv.data
+
 if __name__ == '__main__':
     unittest.main()
