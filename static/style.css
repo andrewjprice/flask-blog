@@ -79,7 +79,7 @@ h2 {
     text-decoration: none;
 }
 
-.nav input[type=text] {
+.nav input[type=text], .nav input[type=password] {
     padding: 6px;
     margin-top: 8px;
     font-size: 17px;
@@ -121,4 +121,7 @@ h2 {
 .delete {
     float: right;
     cursor: pointer;
+    color: red;
+    font-weight: bold;
+    font-size: 25px;
 }
