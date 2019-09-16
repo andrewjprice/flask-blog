@@ -117,3 +117,8 @@ h2 {
 }
 
 /* Nav */
+
+.delete {
+    float: right;
+    cursor: pointer;
+}

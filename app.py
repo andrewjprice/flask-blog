@@ -1,5 +1,5 @@
 import sqlite3
-from flask import Flask, g, render_template, session, redirect, url_for, request, flash, abort
+from flask import Flask, g, render_template, session, redirect, url_for, request, flash, abort, jsonify
 
 # configs
 DATABASE = 'blog.db'
@@ -78,6 +78,18 @@ def create():
     db.commit()
     flash('Successfully created new post')
     return redirect(url_for('index'))
+
+@app.route('/delete/<post_id>', methods=['GET'])
+def delete(post_id):
+    result = {'status': 0, 'message': 'Error'}
+    try:
+        db = get_db()
+        db.execute('delete from posts where id=' + post_id)
+        db.commit()
+        result = {'status': 1, 'message': 'Post deleted'}
+    except Exception as e:
+        result = {'status': 0, 'message': repr(e)}
+    return jsonify(result)
 
 if __name__ == '__main__':
     init_db()

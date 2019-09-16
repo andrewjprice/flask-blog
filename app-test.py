@@ -1,6 +1,7 @@
 import unittest
 import os
 import tempfile
+import json
 import app
 
 class BasicTestCase(unittest.TestCase):
@@ -74,6 +75,11 @@ class FlaskrTestCase(unittest.TestCase):
         assert b'No entries' not in rv.data
         assert b'First Post' in rv.data
         assert b'This is a test' in rv.data
+
+    def test_delete_posts(self):
+        rv = self.app.get('/delete/1')
+        data = json.loads((rv.data).decode('utf-8'))
+        self.assertEqual(data['status'], 1)
 
 if __name__ == '__main__':
     unittest.main()
